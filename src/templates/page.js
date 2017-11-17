@@ -1,4 +1,5 @@
 import React from 'react'
+import HoardingDisplay from '../components/HoardingDisplay'
 
 export default ({ data }) => {
   const { contentfulPage } = data
@@ -8,6 +9,9 @@ export default ({ data }) => {
   } = contentfulPage.childContentfulPageBodyTextNode.childMarkdownRemark
   return (
     <div>
+      {slug === '/' && (
+        <HoardingDisplay hoardings={data.allContentfulHoarding} />
+      )}
       <article
         className="container"
         dangerouslySetInnerHTML={{ __html: html }}
@@ -24,6 +28,29 @@ export const query = graphql`
       childContentfulPageBodyTextNode {
         childMarkdownRemark {
           html
+        }
+      }
+    }
+    allContentfulHoarding {
+      edges {
+        node {
+          image {
+            resolutions(
+              height: 500
+              width: 4000
+              quality: 80
+              resizingBehavior: FILL
+            ) {
+              srcSet
+              src
+            }
+          }
+          title
+          childContentfulHoardingDescriptionTextNode {
+            childMarkdownRemark {
+              html
+            }
+          }
         }
       }
     }

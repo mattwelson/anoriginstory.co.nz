@@ -17,7 +17,7 @@ const Header = ({ title, logo, navigation, reeditUrl }) => (
       <div className="header__nav">
         {navigation &&
           navigation.map(page => (
-            <h3>
+            <h3 key={page.slug}>
               <Link to={page.slug}>{page.title}</Link>
             </h3>
           ))}
@@ -77,7 +77,7 @@ export const query = graphql`
     }
     contentfulAsset(title: { eq: "reedit_logo_full" }) {
       description
-      responsiveResolution(width: 150, quality: 90) {
+      responsiveResolution(width: 110, quality: 90) {
         width
         height
         src
