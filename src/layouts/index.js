@@ -36,7 +36,7 @@ const Header = ({ title, logo, navigation, reeditUrl }) => (
 const TemplateWrapper = ({ children, data }) => (
   <div>
     <Helmet
-      title="Gatsby Default Starter"
+      title={data.contentfulSiteMetadata.siteName}
       meta={[
         {
           name: 'description',
