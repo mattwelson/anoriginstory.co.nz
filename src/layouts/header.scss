@@ -1,0 +1,66 @@
+$breakpoint-desktop: 800px;
+
+.header__container {
+  max-width: 90%;
+  width: 1200px;
+  margin: {
+    left: auto;
+    right: auto;
+    top: 1em;
+    bottom: 1em;
+  }
+  display: flex;
+  align-items: center;
+  flex-flow: row wrap;
+  justify-content: center;
+
+  a {
+    color: white;
+    text-decoration: none;
+  }
+
+  @media (min-width: $breakpoint-desktop) {
+    justify-content: flex-start;
+  }
+}
+
+.header__title {
+  flex: 1;
+  margin: 0 0 0.5em;
+  min-width: 100%;
+  text-align: center;
+
+  @media (min-width: $breakpoint-desktop) {
+    min-width: unset;
+    text-align: left;
+    margin-bottom: 0;
+  }
+}
+
+.header__nav {
+  margin-right: 2.5em;
+  h3 {
+    margin: 1em;
+  }
+}
+
+.header__logo {
+  width: 150px;
+  position: relative;
+
+  img {
+    filter: invert(100%);
+    margin: 0;
+  }
+
+  // the little white line
+  &::after {
+    content: '';
+    width: 1px;
+    height: 50%;
+    background-color: white;
+    position: absolute;
+    left: -2em;
+    top: 25%;
+  }
+}

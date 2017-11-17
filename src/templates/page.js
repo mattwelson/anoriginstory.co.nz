@@ -8,7 +8,10 @@ export default ({ data }) => {
   } = contentfulPage.childContentfulPageBodyTextNode.childMarkdownRemark
   return (
     <div>
-      <div dangerouslySetInnerHTML={{ __html: html }} />
+      <article
+        className="container"
+        dangerouslySetInnerHTML={{ __html: html }}
+      />
     </div>
   )
 }

@@ -3234,6 +3234,14 @@ gatsby-plugin-sass@^1.0.13:
     sass-loader "^4.1.1"
     webpack "^1.13.3"
 
+gatsby-plugin-typography@^1.7.10:
+  version "1.7.10"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-typography/-/gatsby-plugin-typography-1.7.10.tgz#f6566ea9e11129f10d928ac235a3ce4ac9ebd4d3"
+  dependencies:
+    babel-runtime "^6.26.0"
+    react-typography "^0.16.1"
+    typography "^0.16.0"
+
 gatsby-react-router-scroll@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/gatsby-react-router-scroll/-/gatsby-react-router-scroll-1.0.4.tgz#01f953406f5bca5df03f7d345077b159d7702f3c"
@@ -6654,6 +6662,10 @@ react-side-effect@^1.1.0:
     exenv "^1.2.1"
     shallowequal "^1.0.1"
 
+react-typography@^0.16.1:
+  version "0.16.5"
+  resolved "https://registry.yarnpkg.com/react-typography/-/react-typography-0.16.5.tgz#86e539430e0efb3a326c9de20d9e3a32662a2a6b"
+
 react@^15.6.0:
   version "15.6.2"
   resolved "https://registry.yarnpkg.com/react/-/react-15.6.2.tgz#dba0434ab439cfe82f108f0f511663908179aa72"
@@ -8211,7 +8223,7 @@ typography-normalize@^0.14.0:
   version "0.14.0"
   resolved "https://registry.yarnpkg.com/typography-normalize/-/typography-normalize-0.14.0.tgz#1d77c1fe2aaf4a51b3673c4c85c85a65a2d4b573"
 
-typography@^0.16.6:
+typography@^0.16.0:
   version "0.16.6"
   resolved "https://registry.yarnpkg.com/typography/-/typography-0.16.6.tgz#8eeb6a3f10a97fd08025132bb50272104ae72aa3"
   dependencies:
