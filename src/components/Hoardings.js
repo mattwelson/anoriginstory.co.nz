@@ -4,7 +4,9 @@ const Hoardings = ({ hoardings }) => (
   <div className="hoardings">
     {hoardings &&
       hoardings.map(h => (
-        <img key={h.node.title} src={h.node.image.resolutions.src} alt="" />
+        <div className="hoarding">
+          <img key={h.node.title} src={h.node.image.resolutions.src} alt="" />
+        </div>
       ))}
   </div>
 )

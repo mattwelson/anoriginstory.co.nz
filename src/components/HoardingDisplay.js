@@ -1,6 +1,8 @@
 import React from 'react'
 import Hoardings from './Hoardings'
 
+import './hoardings.scss'
+
 class HoardingDisplay extends React.Component {
   state = {}
 
