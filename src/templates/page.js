@@ -43,6 +43,8 @@ export const query = graphql`
             ) {
               srcSet
               src
+              width
+              height
             }
           }
           title

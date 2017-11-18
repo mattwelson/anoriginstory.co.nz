@@ -27,6 +27,8 @@ const Header = ({ title, logo, navigation, reeditUrl }) => (
           src={logo.responsiveResolution.src}
           srcSet={logo.responsiveResolution.srcSet}
           alt={logo.description}
+          width={logo.responsiveResolution.width}
+          height={logo.responsiveResolution.height}
         />
       </a>
     </div>
