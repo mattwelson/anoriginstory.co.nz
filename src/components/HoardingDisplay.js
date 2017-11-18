@@ -22,12 +22,20 @@ class HoardingDisplay extends React.Component {
   }
 
   render() {
+    // some hacks to try and a void a flash of missing stuffs
+    let { title, description } = this.state
+    const firstHoarding = this.props.hoardings.edges[0]
+    if (!title && firstHoarding) {
+      title = firstHoarding.node.title
+      description = firstHoarding.node.description
+    }
+
     return (
       <div className="hoarding-display">
         <h2 className="container">{this.state.title}</h2>
         <Hoardings hoardings={this.props.hoardings.edges} />
         <div
-          className="container"
+          className="container columns"
           dangerouslySetInnerHTML={{ __html: this.state.description }}
         />
       </div>

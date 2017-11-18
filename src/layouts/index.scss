@@ -1,3 +1,5 @@
+$breakpoint-desktop: 1000px;
+
 body {
   background-color: black;
 }
@@ -8,5 +10,16 @@ body {
   margin: {
     left: auto;
     right: auto;
+  }
+}
+
+.columns {
+  @media (min-width: $breakpoint-desktop) {
+    -webkit-column-count: 2;
+    -moz-column-count: 2;
+    column-count: 2;
+    -webkit-column-gap: 3em;
+    -moz-column-gap: 3em;
+    column-gap: 3em;
   }
 }
