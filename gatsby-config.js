@@ -1,4 +1,5 @@
 require('dotenv').config()
+const autoprefixer = require('autoprefixer')
 
 module.exports = {
   siteMetadata: {
@@ -20,6 +21,11 @@ module.exports = {
       }
     },
     'gatsby-transformer-remark',
-    `gatsby-plugin-sass`
+    {
+      resolve: `gatsby-plugin-postcss-sass`,
+      options: {
+        postCssPlugins: [autoprefixer()]
+      }
+    }
   ]
 }
