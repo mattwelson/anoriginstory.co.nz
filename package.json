@@ -14,7 +14,9 @@
     "gatsby-plugin-typography": "^1.7.10",
     "gatsby-source-contentful": "^1.3.23",
     "gatsby-transformer-remark": "^1.7.21",
+    "gsap": "^1.20.3",
     "lodash": "^4.17.4",
+    "prop-types": "^15.6.0",
     "react-lazy": "^0.5.1"
   },
   "keywords": [
@@ -23,7 +25,7 @@
   "license": "MIT",
   "main": "n/a",
   "scripts": {
-    "start": "gatsby build",
+    "start": "gatsby develop",
     "build": "gatsby build",
     "develop": "gatsby develop",
     "format": "prettier --trailing-comma es5 --no-semi --single-quote --write \"src/**/*.js\"",

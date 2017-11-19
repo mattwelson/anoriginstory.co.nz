@@ -10,3 +10,41 @@
     display: block;
   }
 }
+
+.hoardings__container {
+  position: relative;
+}
+
+.controls {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.controls__button {
+  width: 3em;
+  font-size: 3em;
+  max-width: 20%;
+  opacity: 0.5;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  transition: opacity 0.3s linear;
+
+  &:hover {
+    opacity: 0.8;
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+
+  &:active,
+  &:focus {
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+}

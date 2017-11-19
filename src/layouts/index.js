@@ -5,6 +5,7 @@ import Helmet from 'react-helmet'
 
 import './index.scss'
 import './header.scss'
+import favicon from './favicon.ico'
 
 const Header = ({ title, logo, navigation, reeditUrl }) => (
   <header className="header">
@@ -47,7 +48,9 @@ const TemplateWrapper = ({ children, data }) => (
         },
         { name: 'keywords', content: 'sample, something' }
       ]}
-    />
+    >
+      <link rel="shortcut icon" type="image/x-icon" href={favicon} />
+    </Helmet>
     <Header
       title={data.contentfulSiteMetadata.siteName}
       logo={data.contentfulAsset}
