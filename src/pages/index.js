@@ -4,7 +4,7 @@ import HoardingDisplay from '../components/HoardingDisplay'
 export default ({ data }) => {
   return (
     <div>
-      <HoardingDisplay hoardings={data.allContentfulSection} />
+      <HoardingDisplay sections={data.contentfulIndexPage.sections} />
     </div>
   )
 }
@@ -14,23 +14,18 @@ export const query = graphql`
     contentfulIndexPage {
       title
       slug
-    }
-    allContentfulSection {
-      edges {
-        node {
-          title
-          panels {
-            title
-            image {
-              id
-              sizes(maxHeight: 500, quality: 90, maxWidth: 2000) {
-                src
-              }
-            }
+      sections {
+        title
+        childContentfulSectionDescriptionTextNode {
+          childMarkdownRemark {
+            html
           }
-          childContentfulSectionDescriptionTextNode {
-            childMarkdownRemark {
-              html
+        }
+        panels {
+          image {
+            id
+            sizes(maxHeight: 500, quality: 90, maxWidth: 2000) {
+              src
             }
           }
         }

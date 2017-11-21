@@ -5,7 +5,7 @@ import { TweenLite } from 'gsap'
 
 import HoardingControls from './HoardingControls'
 
-import './hoardings.scss'
+import './hoarding.scss'
 
 class HoardingDisplay extends React.Component {
   componentDidMount() {
@@ -17,14 +17,14 @@ class HoardingDisplay extends React.Component {
   hoardingNodes = []
 
   changeHoarding = index => {
-    const hoarding = this.props.hoardings.edges[index]
-    if (hoarding) {
+    const section = this.props.sections[index]
+    if (section) {
       this.setState(() => ({
         current: index,
-        title: hoarding.node.title,
+        title: section.title,
         description:
-          hoarding.node.childContentfulSectionDescriptionTextNode
-            .childMarkdownRemark.html
+          section.childContentfulSectionDescriptionTextNode.childMarkdownRemark
+            .html
       }))
     }
   }
@@ -61,44 +61,33 @@ class HoardingDisplay extends React.Component {
   }
 
   render() {
+    const sections = this.props.sections
     // some hacks to try and avoid a flash of missing stuffs
-    let { title, description } = this.state
-    const firstHoarding = this.props.hoardings.edges[0]
-    if (!title && firstHoarding) {
-      title = firstHoarding.node.title
-      description = firstHoarding.node.description
-    }
-    const hoardings = this.props.hoardings.edges
+    const { title, description } = this.state || sections[0]
 
     return (
-      <div className="hoarding-display">
-        <h2 className="container">{this.state.title}</h2>
-        <div className="hoardings__container">
+      <div>
+        <h2 className="container">{title}</h2>
+        <div className="hoarding__container">
           <div
-            className="hoardings"
+            className="hoarding"
             onScroll={this.onHoardingScroll}
             ref={n => (this.hoardingContainer = n)}
           >
-            {hoardings &&
-              hoardings.map((h, i) => (
+            {sections &&
+              sections.map((s, i) => (
                 <div
-                  key={h.node.title}
-                  className="hoarding"
+                  key={s.title}
+                  className="section"
                   style={{
-                    //minWidth: h.node.image.resolutions.width,
-                    height: 500, // change later
-                    minWidth: 2000
+                    height: 500 // change later
+                    //minWidth: 2000
                   }}
                   ref={n => (this.hoardingNodes[i] = n)}
                 >
-                  {h.node.panels.map(panel => (
-                    <Lazy cushion={1000}>
-                      <img
-                        src={panel.image.sizes.src}
-                        alt=""
-                        minWidth={400} // change later
-                        height={500}
-                      />
+                  {s.panels.map(panel => (
+                    <Lazy cushion={1000} key={panel.id}>
+                      <img src={panel.image.sizes.src} alt="" height={500} />
                     </Lazy>
                   ))}
                 </div>
@@ -108,7 +97,7 @@ class HoardingDisplay extends React.Component {
         </div>
         <div
           className="container columns"
-          dangerouslySetInnerHTML={{ __html: this.state.description }}
+          dangerouslySetInnerHTML={{ __html: description }}
         />
       </div>
     )
