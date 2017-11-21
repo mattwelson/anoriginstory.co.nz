@@ -87,7 +87,7 @@ class HoardingDisplay extends React.Component {
                   style={{
                     //minWidth: h.node.image.resolutions.width,
                     height: 500, // change later
-                    minWidth: 300
+                    minWidth: 2000
                   }}
                   ref={n => (this.hoardingNodes[i] = n)}
                 >
