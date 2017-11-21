@@ -8,6 +8,11 @@
     margin: 0;
     max-width: none;
     display: block;
+    user-select: none;
+  }
+
+  &::-webkit-scrollbar {
+    display: none;
   }
 }
 
@@ -23,6 +28,7 @@
   left: 0;
   display: flex;
   justify-content: space-between;
+  pointer-events: none;
 }
 
 .controls__button {
@@ -35,6 +41,7 @@
   align-items: center;
   justify-content: center;
   user-select: none;
+  pointer-events: auto;
   transition: opacity 0.3s linear;
 
   &:hover {
