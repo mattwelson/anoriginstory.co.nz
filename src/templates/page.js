@@ -31,30 +31,5 @@ export const query = graphql`
         }
       }
     }
-    allContentfulHoarding {
-      edges {
-        node {
-          image {
-            resolutions(
-              height: 500
-              width: 4000
-              quality: 80
-              resizingBehavior: FILL
-            ) {
-              srcSet
-              src
-              width
-              height
-            }
-          }
-          title
-          childContentfulHoardingDescriptionTextNode {
-            childMarkdownRemark {
-              html
-            }
-          }
-        }
-      }
-    }
   }
 `
