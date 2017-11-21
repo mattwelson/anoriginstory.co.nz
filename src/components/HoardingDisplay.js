@@ -23,7 +23,7 @@ class HoardingDisplay extends React.Component {
         current: index,
         title: hoarding.node.title,
         description:
-          hoarding.node.childContentfulHoardingDescriptionTextNode
+          hoarding.node.childContentfulSectionDescriptionTextNode
             .childMarkdownRemark.html
       }))
     }
@@ -85,19 +85,21 @@ class HoardingDisplay extends React.Component {
                   key={h.node.title}
                   className="hoarding"
                   style={{
-                    minWidth: h.node.image.resolutions.width,
-                    height: h.node.image.resolutions.height
+                    //minWidth: h.node.image.resolutions.width,
+                    height: 500 // change later
                   }}
                   ref={n => (this.hoardingNodes[i] = n)}
                 >
-                  <Lazy cushion={1000}>
-                    <img
-                      src={h.node.image.resolutions.src}
-                      alt=""
-                      width={h.node.image.resolutions.width}
-                      height={h.node.image.resolutions.height}
-                    />
-                  </Lazy>
+                  {h.node.panels.map(panel => (
+                    <Lazy cushion={1000}>
+                      <img
+                        src={panel.image.sizes.src}
+                        alt=""
+                        minWidth={400} // change later
+                        height={500}
+                      />
+                    </Lazy>
+                  ))}
                 </div>
               ))}
           </div>
