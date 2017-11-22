@@ -6,13 +6,13 @@ const HoardingControls = ({ handleScroll }) => (
       className="controls__button controls__button--left"
       onClick={() => handleScroll(-1)}
     >
-      &lt;
+      &lsaquo;
     </div>
     <div
       className="controls__button controls__button--right"
       onClick={() => handleScroll()}
     >
-      &gt;
+      &rsaquo;
     </div>
   </div>
 )
