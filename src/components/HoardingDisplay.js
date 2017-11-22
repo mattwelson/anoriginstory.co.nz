@@ -4,19 +4,22 @@ import { Lazy, checkElementsInViewport } from 'react-lazy'
 import { TweenLite } from 'gsap'
 
 import HoardingControls from './HoardingControls'
+import { getWidth, getUrlForImage } from '../utils/helpers'
 
 import './hoarding.scss'
 
 class HoardingDisplay extends React.Component {
   componentDidMount() {
-    this.changeHoarding(0)
+    this.changeSection(0)
+    this.scroll(0)
   }
 
   state = {}
 
-  hoardingNodes = []
+  sectionNodes = []
+  panelNodes = []
 
-  changeHoarding = index => {
+  changeSection = index => {
     const section = this.props.sections[index]
     if (section) {
       this.setState(() => ({
@@ -34,11 +37,11 @@ class HoardingDisplay extends React.Component {
       const scrollPosition =
         this.hoardingContainer.scrollLeft +
         this.hoardingContainer.offsetWidth * 0.35
-      let index = this.hoardingNodes.reduce((current, x, i) => {
+      const sectionIndex = this.sectionNodes.reduce((current, x, i) => {
         return scrollPosition < x.offsetLeft ? current : i
       }, 0)
       checkElementsInViewport()
-      this.changeHoarding(index)
+      this.changeSection(sectionIndex)
       // maybe also set the left most edge and right most edge so I can disable controls
     },
     200,
@@ -46,52 +49,86 @@ class HoardingDisplay extends React.Component {
   )
 
   scroll = (direction = 1) => {
-    const scrollDelta = direction * 0.5 * this.hoardingContainer.offsetWidth
-    const scrollLeft = this.hoardingContainer.scrollLeft + scrollDelta
-    TweenLite.to(this.hoardingContainer, 0.3, { scrollLeft })
-  }
+    const titleLeft = this.titleNode.offsetLeft
+    const scrollPosition = this.hoardingContainer.scrollLeft + titleLeft
+    const mergedPanels = [].concat.apply([], this.panelNodes)
 
-  scrollToHoarding = (deltaIndex = 1) => {
-    const index = this.state.current + deltaIndex
-    const hoarding = this.props.hoardings.edges[index]
-    if (hoarding) {
-      const scrollLeft = this.hoardingNodes[index].offsetLeft
-      TweenLite.to(this.hoardingContainer, 0.3, { scrollLeft })
-    }
+    const panelIndex = mergedPanels.reduce((current, x, i) => {
+      return scrollPosition < x.offsetLeft ? current : i
+    }, 0)
+    // get panel left position
+    const panel = mergedPanels[panelIndex + direction]
+
+    console.log({ mergedPanels, panelIndex, direction })
+    if (!panel) return
+
+    const panelLeft = panel.offsetLeft
+    // get text position to align to
+
+    console.log(titleLeft, panelLeft)
+    TweenLite.to(this.hoardingContainer, 0.3, {
+      scrollLeft: panelLeft - titleLeft
+    })
   }
 
   render() {
     const sections = this.props.sections
     // some hacks to try and avoid a flash of missing stuffs
     const { title, description } = this.state || sections[0]
+    const height = 500
 
     return (
       <div>
-        <h2 className="container">{title}</h2>
+        <div className="container">
+          <h2 ref={n => (this.titleNode = n)}>{title}</h2>
+        </div>
         <div className="hoarding__container">
           <div
             className="hoarding"
             onScroll={this.onHoardingScroll}
             ref={n => (this.hoardingContainer = n)}
+            style={{ height }}
           >
+            <div className="section--buffer" />
             {sections &&
               sections.map((s, i) => (
                 <div
                   key={s.title}
                   className="section"
                   style={{
-                    height: 500 // change later
-                    //minWidth: 2000
+                    height
                   }}
-                  ref={n => (this.hoardingNodes[i] = n)}
+                  ref={n => (this.sectionNodes[i] = n)}
                 >
-                  {s.panels.map(panel => (
-                    <Lazy cushion={1000} key={panel.id}>
-                      <img src={panel.image.sizes.src} alt="" height={500} />
-                    </Lazy>
-                  ))}
+                  {s.panels.map((panel, panelIndex) => {
+                    const file = panel.image.file
+                    const width = getWidth(file, height)
+                    this.panelNodes[i] = []
+                    return (
+                      <div
+                        key={panel.id}
+                        style={{
+                          width
+                        }}
+                        ref={n => (this.panelNodes[i][panelIndex] = n)}
+                      >
+                        <Lazy cushion={1000}>
+                          <img
+                            src={getUrlForImage(file, {
+                              height: height,
+                              jpegProgresive: true
+                            })}
+                            alt=""
+                            height={height}
+                            width={width}
+                          />
+                        </Lazy>
+                      </div>
+                    )
+                  })}
                 </div>
               ))}
+            <div className="section--buffer" />
           </div>
           <HoardingControls handleScroll={this.scroll} />
         </div>
