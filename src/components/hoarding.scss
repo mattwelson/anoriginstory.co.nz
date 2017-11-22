@@ -1,7 +1,6 @@
 .hoarding {
   max-width: 100%;
   overflow-y: auto;
-  margin-bottom: 2em;
   display: flex;
 
   img {
@@ -22,6 +21,8 @@
 
 .hoarding__container {
   position: relative;
+  overflow: hidden;
+  margin-bottom: 2em;
 }
 
 .controls {
@@ -36,7 +37,7 @@
 }
 
 .controls__button {
-  width: 3em;
+  width: 1.5em;
   font-size: 3em;
   max-width: 20%;
   opacity: 0.5;
@@ -57,5 +58,11 @@
   &:focus {
     opacity: 1;
     background-color: rgba(0, 0, 0, 0.4);
+  }
+}
+
+@media (min-width: 1000px) {
+  .section--buffer {
+    min-width: 50vw;
   }
 }

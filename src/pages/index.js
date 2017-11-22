@@ -22,10 +22,17 @@ export const query = graphql`
           }
         }
         panels {
+          id
           image {
             id
-            sizes(maxHeight: 500, quality: 90, maxWidth: 2000) {
-              src
+            file {
+              url
+              details {
+                image {
+                  width
+                  height
+                }
+              }
             }
           }
         }
