@@ -88,7 +88,7 @@ class HoardingDisplay extends React.Component {
 
   setSizes = () => {
     this.setState(() => ({
-      sectionHeight: getHeightForSections(window.innerHeight),
+      sectionHeight: getHeightForSections(window.outerHeight),
       blackBarWidth: getBlackBarWidth(window.innerWidth)
     }))
   }
@@ -98,7 +98,7 @@ class HoardingDisplay extends React.Component {
     // some hacks to try and avoid a flash of missing stuffs
     const { title, description } = this.state || sections[0]
     let height = this.state.sectionHeight
-    if (!height && typeof window !== 'undefined') height = window.innerHeight
+    if (!height && typeof window !== 'undefined') height = window.outerHeight
 
     return (
       <div>
