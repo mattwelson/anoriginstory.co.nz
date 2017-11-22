@@ -98,7 +98,8 @@ class HoardingDisplay extends React.Component {
     // some hacks to try and avoid a flash of missing stuffs
     const { title, description } = this.state || sections[0]
     const height =
-      this.state.sectionHeight || getHeightForSections(window.innerHeight)
+      this.state.sectionHeight ||
+      (window && getHeightForSections(window.innerHeight))
 
     return (
       <div>
