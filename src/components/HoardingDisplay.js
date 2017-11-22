@@ -4,7 +4,13 @@ import { Lazy, checkElementsInViewport } from 'react-lazy'
 import { TweenLite } from 'gsap'
 
 import HoardingControls from './HoardingControls'
-import { getWidth, getUrlForImage } from '../utils/helpers'
+import {
+  getWidth,
+  getUrlForImage,
+  getHeightForSections,
+  getBlackBarWidth,
+  getSrcSetForImage
+} from '../utils/helpers'
 
 import './hoarding.scss'
 
@@ -12,6 +18,13 @@ class HoardingDisplay extends React.Component {
   componentDidMount() {
     this.changeSection(0)
     this.scroll(0)
+    this.setSizes()
+
+    window.addEventListener('resize', this.onResize)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.onResize)
   }
 
   state = {}
@@ -48,6 +61,10 @@ class HoardingDisplay extends React.Component {
     { leading: true }
   )
 
+  onResize = throttle(e => {
+    this.setSizes()
+  })
+
   scroll = (direction = 1) => {
     const titleLeft = this.titleNode.offsetLeft
     const scrollPosition = this.hoardingContainer.scrollLeft + titleLeft
@@ -59,23 +76,29 @@ class HoardingDisplay extends React.Component {
     // get panel left position
     const panel = mergedPanels[panelIndex + direction]
 
-    console.log({ mergedPanels, panelIndex, direction })
     if (!panel) return
 
     const panelLeft = panel.offsetLeft
     // get text position to align to
 
-    console.log(titleLeft, panelLeft)
     TweenLite.to(this.hoardingContainer, 0.3, {
-      scrollLeft: panelLeft - titleLeft
+      scrollLeft: panelLeft - (this.state.blackBarWidth || titleLeft)
     })
+  }
+
+  setSizes = () => {
+    this.setState(() => ({
+      sectionHeight: getHeightForSections(window.innerHeight),
+      blackBarWidth: getBlackBarWidth(window.innerWidth)
+    }))
   }
 
   render() {
     const sections = this.props.sections
     // some hacks to try and avoid a flash of missing stuffs
     const { title, description } = this.state || sections[0]
-    const height = 500
+    const height =
+      this.state.sectionHeight || getHeightForSections(window.innerHeight)
 
     return (
       <div>
@@ -89,7 +112,10 @@ class HoardingDisplay extends React.Component {
             ref={n => (this.hoardingContainer = n)}
             style={{ height }}
           >
-            <div className="section--buffer" />
+            <div
+              className="section--buffer"
+              style={{ minWidth: this.state.blackBarWidth }}
+            />
             {sections &&
               sections.map((s, i) => (
                 <div
@@ -115,7 +141,11 @@ class HoardingDisplay extends React.Component {
                         <Lazy cushion={1000}>
                           <img
                             src={getUrlForImage(file, {
-                              height: height,
+                              height,
+                              jpegProgresive: true
+                            })}
+                            srcSet={getSrcSetForImage(file, {
+                              height,
                               jpegProgresive: true
                             })}
                             alt=""
@@ -128,7 +158,10 @@ class HoardingDisplay extends React.Component {
                   })}
                 </div>
               ))}
-            <div className="section--buffer" />
+            <div
+              className="section--buffer"
+              style={{ minWidth: this.state.blackBarWidth }}
+            />
           </div>
           <HoardingControls handleScroll={this.scroll} />
         </div>

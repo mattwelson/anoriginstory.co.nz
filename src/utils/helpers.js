@@ -16,11 +16,55 @@ export const getUrlForImage = (file, options = {}) => {
     {
       h: options.height,
       fl: options.jpegProgresive ? 'progressive' : null,
-      q: options.quality
+      q: options.quality || 90
     },
     x => x
   )
   return `${file.url}?${qs.stringify(args)}`
 }
 
-// to do add a bunch of srcset and size things
+export const getSrcSetForImage = (file, options = {}) => {
+  const sizes = [
+    { height: options.height, res: '1x' },
+    { height: Math.round(options.height * 1.5), res: '1.5x' },
+    { height: options.height * 2, res: '2x' },
+    { height: options.height * 3, res: '3x' }
+  ]
+
+  const filteredSizes = sizes.filter(
+    size => size.height < file.details.image.height
+  )
+
+  return filteredSizes
+    .map(
+      size =>
+        `${getUrlForImage(file, { ...options, height: size.height })} ${
+          size.res
+        }`
+    )
+    .join(',\n')
+}
+
+export const getHeightForSections = browserHeight => {
+  // round down to hundreds of pixels, cap between 700 and 300?
+  const minHeight = 350
+  const maxHeight = 700
+  const maxProportion = 0.7
+  const roundTo = 100
+  const panelHeight = Math.max(
+    minHeight,
+    Math.min(
+      maxHeight,
+      roundTo * Math.floor(maxProportion * browserHeight / roundTo)
+    )
+  )
+  return panelHeight
+}
+
+export const getBlackBarWidth = browserWidth => {
+  const maxWidth = 1200
+  const padding = 100 // for the controls, don't want half overlays!
+
+  const delta = (browserWidth - maxWidth) / 2
+  return delta > padding ? delta : 0
+}
