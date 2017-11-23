@@ -138,7 +138,7 @@ class HoardingDisplay extends React.Component {
                         }}
                         ref={n => (this.panelNodes[i][panelIndex] = n)}
                       >
-                        <Lazy cushion={1000}>
+                        <Lazy cushion={2000}>
                           <img
                             src={getUrlForImage(file, {
                               height,
