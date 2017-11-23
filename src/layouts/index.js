@@ -39,7 +39,8 @@ const Header = ({ title, logo, navigation, reeditUrl }) => (
 const TemplateWrapper = ({ children, data }) => (
   <div>
     <Helmet
-      title={data.contentfulSiteMetadata.siteName}
+      defaultTitle={data.contentfulSiteMetadata.siteName}
+      titleTemplate={`${data.contentfulSiteMetadata.siteName} - %s`}
       meta={[
         {
           name: 'description',

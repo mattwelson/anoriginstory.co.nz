@@ -1,5 +1,6 @@
 import React from 'react'
 import HoardingDisplay from '../components/HoardingDisplay'
+import Helmet from 'react-helmet'
 
 import AboutSection from '../components/AboutSection'
 
@@ -10,6 +11,7 @@ export default ({ data }) => {
   // set title
   return (
     <div>
+      <Helmet title={title} />
       <article>
         {contentfulPage.sections.map(x => (
           <AboutSection section={x} key={x.title} />
