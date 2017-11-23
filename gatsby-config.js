@@ -8,6 +8,12 @@ module.exports = {
   plugins: [
     `gatsby-plugin-react-helmet`,
     {
+      resolve: 'gatsby-plugin-google-tagmanager',
+      options: {
+        id: 'GTM-WHZQLZQ'
+      }
+    },
+    {
       resolve: `gatsby-plugin-typography`,
       options: {
         pathToConfigModule: `src/utils/typography.js`

@@ -19,12 +19,14 @@ const AboutSection = ({ section }) => {
           alt="logo"
         />
       )}
-      <div
-        className="container"
-        dangerouslySetInnerHTML={{
-          __html: section.description.childMarkdownRemark.html
-        }}
-      />
+      {section.description && (
+        <div
+          className="container"
+          dangerouslySetInnerHTML={{
+            __html: section.description.childMarkdownRemark.html
+          }}
+        />
+      )}
     </section>
   )
 }
