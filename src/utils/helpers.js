@@ -49,7 +49,7 @@ export const getHeightForSections = browserHeight => {
   // round down to hundreds of pixels, cap between 700 and 300?
   const minHeight = 350
   const maxHeight = 700
-  const maxProportion = 0.7
+  const maxProportion = 0.6
   const roundTo = 100
   const panelHeight = Math.max(
     minHeight,
