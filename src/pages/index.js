@@ -23,6 +23,7 @@ export const query = graphql`
         }
         panels {
           id
+          title
           image {
             id
             file {
