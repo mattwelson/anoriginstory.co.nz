@@ -137,6 +137,7 @@ class HoardingDisplay extends React.Component {
                           width
                         }}
                         ref={n => (this.panelNodes[i][panelIndex] = n)}
+                        className="section__panel"
                       >
                         <Lazy cushion={2000}>
                           <img
