@@ -4,6 +4,8 @@ import Helmet from 'react-helmet'
 
 import AboutSection from '../components/AboutSection'
 
+import './about.scss'
+
 export default ({ data }) => {
   const { contentfulPage } = data
   const { title } = contentfulPage
@@ -45,6 +47,8 @@ export const query = graphql`
             html
           }
         }
+        parralax
+        imageShim
       }
     }
   }
