@@ -59,6 +59,7 @@ const TemplateWrapper = ({ children, data }) => (
       navigation={data.contentfulSiteMetadata.navigation}
     />
     <div className="content">{children()}</div>
+    <footer>The footer</footer>
   </div>
 )
 
