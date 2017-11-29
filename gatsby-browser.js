@@ -14,7 +14,6 @@ exports.onInitialClientRender = () => {
         sections[0].forEach(s => {
           const delta = (window.pageYOffset - s.offsetTop) * speed
           const image = s.querySelector('img')
-          console.log(image)
           image.setAttribute('style', `transform: translateY(${delta}px)`)
         })
       },
