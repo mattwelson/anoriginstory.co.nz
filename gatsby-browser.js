@@ -1,6 +1,6 @@
 import throttle from 'lodash/throttle'
 
-const speed = 0.15
+const strength = 0.1
 
 exports.onInitialClientRender = () => {
   window.addEventListener(
@@ -12,7 +12,7 @@ exports.onInitialClientRender = () => {
         ]
 
         sections[0].forEach(s => {
-          const delta = (window.pageYOffset - s.offsetTop) * speed
+          const delta = (window.pageYOffset - s.offsetTop) * strength
           const image = s.querySelector('img')
           image.setAttribute('style', `transform: translateY(${delta}px)`)
         })
