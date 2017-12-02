@@ -5,6 +5,7 @@ body {
 }
 
 a {
+  &,
   &:hover,
   &:visited {
     color: #00a9ac;
@@ -40,4 +41,13 @@ footer {
 
 .page__content {
   min-height: 500px;
+}
+
+.error {
+  display: flex;
+  flex-direction: column;
+  padding: 2em;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
 }

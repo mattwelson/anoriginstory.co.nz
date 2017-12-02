@@ -8,6 +8,7 @@ module.exports = {
   plugins: [
     `gatsby-plugin-react-helmet`,
     'gatsby-plugin-netlify',
+    'gatsby-plugin-catch-links',
     {
       resolve: 'gatsby-plugin-google-tagmanager',
       options: {
