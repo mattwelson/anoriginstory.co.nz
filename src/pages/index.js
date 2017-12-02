@@ -3,7 +3,7 @@ import HoardingDisplay from '../components/HoardingDisplay'
 
 export default ({ data }) => {
   return (
-    <div>
+    <div className="page__content">
       <HoardingDisplay sections={data.contentfulIndexPage.sections} />
     </div>
   )

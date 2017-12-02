@@ -4,6 +4,13 @@ body {
   background-color: black;
 }
 
+a {
+  &:hover,
+  &:visited {
+    color: #00a9ac;
+  }
+}
+
 .container {
   max-width: 90%;
   width: 960px;
@@ -29,4 +36,8 @@ footer {
   align-items: center;
   justify-content: center;
   min-height: 10em;
+}
+
+.page__content {
+  min-height: 500px;
 }

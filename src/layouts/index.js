@@ -54,7 +54,7 @@ const TemplateWrapper = ({ children, data }) => (
     </Helmet>
     <Header
       title={data.contentfulSiteMetadata.siteName}
-      logo={data.contentfulAsset}
+      logo={data.contentfulSiteMetadata.logo}
       reeditUrl={data.contentfulSiteMetadata.reeditUrl}
       navigation={data.contentfulSiteMetadata.navigation}
     />
@@ -81,14 +81,14 @@ export const query = graphql`
         slug
         title
       }
-    }
-    contentfulAsset(title: { eq: "reedit_logo_full" }) {
-      description
-      responsiveResolution(width: 110, quality: 90) {
-        width
-        height
-        src
-        srcSet
+      logo {
+        description
+        responsiveResolution(width: 110, quality: 90) {
+          width
+          height
+          src
+          srcSet
+        }
       }
     }
   }

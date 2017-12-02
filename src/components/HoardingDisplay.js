@@ -86,10 +86,23 @@ class HoardingDisplay extends React.Component {
     })
   }
 
+  lastSectionWidth = height => {
+    const section = this.props.sections[this.props.sections.length - 1]
+    return section.panels.reduce((sum, p) => {
+      return sum + getWidth(p.image.file, height)
+    }, 0)
+  }
+
   setSizes = () => {
+    const sectionHeight = getHeightForSections(window.outerHeight)
     this.setState(() => ({
-      sectionHeight: getHeightForSections(window.outerHeight),
-      blackBarWidth: getBlackBarWidth(window.innerWidth)
+      sectionHeight,
+      blackBarWidthLeft: getBlackBarWidth(window.innerWidth),
+      blackBarWidthRight: getBlackBarWidth(
+        window.innerWidth,
+        true,
+        this.lastSectionWidth(sectionHeight)
+      )
     }))
   }
 
@@ -114,7 +127,7 @@ class HoardingDisplay extends React.Component {
           >
             <div
               className="section--buffer"
-              style={{ minWidth: this.state.blackBarWidth }}
+              style={{ minWidth: this.state.blackBarWidthLeft }}
             />
             {sections &&
               sections.map((s, i) => (
@@ -162,7 +175,7 @@ class HoardingDisplay extends React.Component {
               ))}
             <div
               className="section--buffer"
-              style={{ minWidth: this.state.blackBarWidth }}
+              style={{ minWidth: this.state.blackBarWidthRight }}
             />
           </div>
           <HoardingControls handleScroll={this.scroll} />

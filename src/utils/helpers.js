@@ -1,5 +1,6 @@
 import qs from 'qs'
 import pickBy from 'lodash/pickBy'
+import slugify from 'slugify'
 
 export const aspectRatio = file => {
   const width = parseInt(file.details.image.width)
@@ -61,10 +62,23 @@ export const getHeightForSections = browserHeight => {
   return panelHeight
 }
 
-export const getBlackBarWidth = browserWidth => {
+export const getBlackBarWidth = (
+  browserWidth,
+  right = false,
+  lastSectionWidth = 0
+) => {
   const maxWidth = 1200
   const padding = 100 // for the controls, don't want half overlays!
 
   const delta = (browserWidth - maxWidth) / 2
-  return delta > padding ? delta : 0
+  const leftBar = delta > padding ? delta : 0
+
+  if (!right) return leftBar
+  return Math.max(leftBar, browserWidth - leftBar - lastSectionWidth)
 }
+
+export const slug = text =>
+  slugify(text, {
+    remove: '"',
+    lower: true
+  })
